@@ -1,0 +1,14 @@
+/.idea/codeStyles
+/lib/mysql-connector-java-8.0.18.jar
+/.idea/compiler.xml
+/.idea/dbnavigator.xml
+/target/classes/richard/mysqltest/main/Main.class
+/.idea/misc.xml
+/mysqltesting.iml
+/target/classes/META-INF/mysqltesting.kotlin_module
+/target/classes/richard/mysqltest/mysql/ReturnHandler.class
+/target/classes/richard/mysqltest/mysql/SQLCommand.class
+/target/classes/richard/mysqltest/gui/SQLFrame.class
+/.idea/workspace.xml
+/.idea/vcs.xml
+/.idea/uiDesigner.xml
