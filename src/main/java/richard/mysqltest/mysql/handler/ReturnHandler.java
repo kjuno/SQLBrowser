@@ -1,4 +1,4 @@
-package richard.mysqltest.mysql;
+package richard.mysqltest.mysql.handler;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

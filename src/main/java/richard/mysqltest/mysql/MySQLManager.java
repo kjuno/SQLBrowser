@@ -1,5 +1,7 @@
 package richard.mysqltest.mysql;
 
+import richard.mysqltest.mysql.commands.SQLCommand;
+
 import java.sql.*;
 
 public class MySQLManager {
@@ -76,7 +78,7 @@ public class MySQLManager {
 
         return set;
     }
-    public String[] convertMetaDatatoArray(ResultSetMetaData data) throws SQLException {
+    public static String[] convertMetaDatatoArray(ResultSetMetaData data) throws SQLException {
         String[] columns = new String[data.getColumnCount()];
         for (int i = 0; i < data.getColumnCount(); i++) {
             columns[i]=data.getColumnName(i + 1);
