@@ -43,13 +43,19 @@ public class MySQLManager {
         ResultSet set = null;
 
         try {
-
+            if(connection == null){
+                System.out.println("Verbindung wurde nicht gesetzt!");
+                return null;
+            }
             stmt = connection.createStatement();
             if(command.isReturning()){
                 set = stmt.executeQuery(command.getCommand());
+                command.getHandler().run(set);
+
                 while(set.next()){
-                    command.getHandler().run(set);
+                    command.getHandler().loopNext(set);
                 }
+
             } else {
                 stmt.execute(command.getCommand());
             }
@@ -69,6 +75,12 @@ public class MySQLManager {
         }
 
         return set;
-
+    }
+    public String[] convertMetaDatatoArray(ResultSetMetaData data) throws SQLException {
+        String[] columns = new String[data.getColumnCount()];
+        for (int i = 0; i < data.getColumnCount(); i++) {
+            columns[i]=data.getColumnName(i + 1);
+        }
+        return columns;
     }
 }
