@@ -6,6 +6,7 @@ import richard.mysqltest.mysql.commands.SQLCommand;
 import richard.mysqltest.mysql.handler.GetTableOutput;
 
 public class Main {
+
     static MySQLManager manager;
 
     public static void main(String[] args) {
@@ -17,13 +18,17 @@ public class Main {
         );
         manager.setConnection();
 
-        manager.writeStatement(new SQLCommand("use testing"));
+        if(!(manager.getConnection() == null)){
+            manager.writeStatement(new SQLCommand("use testing"));
+        }
 
-        GetTableOutput out = new GetTableOutput();
-        manager.writeStatement(new SQLCommand("describe user", out));
-
-        SQLFrame sqlFrame = new SQLFrame(out.getTabledata(), out.getColumnname());
+        SQLFrame sqlFrame = new SQLFrame();
     }
+
+    public static MySQLManager getManager() {
+        return manager;
+    }
+
 }
 
 

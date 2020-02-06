@@ -1,6 +1,7 @@
 package richard.mysqltest.mysql;
 
 import richard.mysqltest.mysql.commands.SQLCommand;
+import richard.mysqltest.mysql.data.ConnectionData;
 
 import java.sql.*;
 
@@ -19,16 +20,34 @@ public class MySQLManager {
         this.password = password;
         this.port = port;
     }
+    public MySQLManager(){
+    }
 
     public String setConnection(){
         try {
             connection = DriverManager.getConnection("jdbc:mysql://"
-                    + host + ":"
-                    + port + "/"
-                    + "mysql"
-                    + "?serverTimezone=UTC",
+                            + host + ":"
+                            + port + "/"
+                            + "mysql"
+                            + "?serverTimezone=UTC",
                     username,
                     password);
+            return "MySQL Verbindung Erfolgreich!\n";
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Fehlgeschlagen! siehe Stack Trace";
+        }
+    }
+
+    public String setConnection(ConnectionData data){
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://"
+                            + data.getHostname() + ":"
+                            + data.getPort() + "/"
+                            + "mysql"
+                            + "?serverTimezone=UTC",
+                    data.getUser(),
+                    data.getPassword());
             return "MySQL Verbindung Erfolgreich!\n";
         } catch (SQLException e) {
             e.printStackTrace();
