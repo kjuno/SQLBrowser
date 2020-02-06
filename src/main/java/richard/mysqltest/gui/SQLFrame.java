@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import richard.mysqltest.main.Main;
 import richard.mysqltest.mysql.commands.SQLCommand;
 import richard.mysqltest.mysql.data.ConnectionData;
@@ -143,6 +142,35 @@ public class SQLFrame extends JFrame {
         frame.getContentPane().add (connectionpanel);
         frame.pack();
 
+        connectionpanel.getButton1().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Choose Connection Config");
+
+                int userselection = fileChooser.showOpenDialog(frame);
+
+                File configfile = null;
+
+                ConnectionData data = null;
+
+                if(userselection == JFileChooser.APPROVE_OPTION){
+                    configfile = fileChooser.getSelectedFile();
+                    try {
+                        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+                        mapper.findAndRegisterModules();
+                        data = mapper.readValue(configfile, ConnectionData.class);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null,"Etwas ist schief gelaufen :(","ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    Main.getManager().setConnection(data);
+                    JOptionPane.showMessageDialog(null,"Connection wurde erfolgreich gesetzt!","Connection", JOptionPane.INFORMATION_MESSAGE);
+                    frame.dispose();
+                }
+            }
+        });
+
         connectionpanel.getJcomp1().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(connectionpanel.getHost().getText().equals("") ||
@@ -178,6 +206,7 @@ public class SQLFrame extends JFrame {
                         frame.dispose();
                     }
                 }
+                JOptionPane.showMessageDialog(null,"Connection wurde erfolgreich gesetzt!","Connection", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 

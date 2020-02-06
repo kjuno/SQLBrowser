@@ -1,18 +1,6 @@
 package richard.mysqltest.mysql.data;
 
 public class ConnectionData {
-    private String hostname;
-    private String user;
-    private String password;
-    private int port;
-
-    public ConnectionData(String hostname, String user, String password, int port) {
-        this.hostname = hostname;
-        this.user = user;
-        this.password = password;
-        this.port = port;
-    }
-
     public String getHostname() {
         return hostname;
     }
@@ -44,4 +32,21 @@ public class ConnectionData {
     public void setPort(int port) {
         this.port = port;
     }
+
+    public ConnectionData(String hostname, String user, String password, int port) {
+        this.hostname = hostname;
+        this.user = user;
+        this.password = password;
+        this.port = port;
+    }
+
+    public ConnectionData()
+    {
+        super();
+    }
+
+    private String hostname;
+    private String user;
+    private String password;
+    private int port;
 }

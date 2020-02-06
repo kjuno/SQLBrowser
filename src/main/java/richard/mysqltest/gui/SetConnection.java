@@ -5,6 +5,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SetConnection extends JPanel {
+    private JButton button1;
+
     public JButton getJcomp1() {
         return jcomp1;
     }
@@ -43,9 +45,14 @@ public class SetConnection extends JPanel {
     private JLabel jcomp10;
     private JLabel jcomp11;
 
+    public JButton getButton1() {
+        return button1;
+    }
+
     public SetConnection() {
         //construct components
         jcomp1 = new JButton ("Set Connection");
+        button1 = new JButton ("File");
         jcomp2 = new JCheckBox ("Save to Config");
         jcomp3 = new JLabel ("Set your Connection to your Database");
         host = new JTextField (5);
@@ -73,9 +80,11 @@ public class SetConnection extends JPanel {
         add (jcomp9);
         add (jcomp10);
         add (jcomp11);
+        add (button1);
 
         //set component bounds (only needed by Absolute Positioning)
         jcomp1.setBounds (63, 220, 160, 30);
+        button1.setBounds (20, 240, 30, 30);
         jcomp2.setBounds (88, 257, 110, 25);
         jcomp3.setBounds (34, 15, 215, 25);
         host.setBounds (137, 60, 100, 25);
