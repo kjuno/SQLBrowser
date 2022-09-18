@@ -23,9 +23,13 @@ import java.io.IOException;
 
 public class SQLFrame extends JFrame {
     private final JCheckBox check;
-    private final SetConnection connectionpanel;
+    private final SetConnection connectionpanel = new SetConnection();
     private final JTextField tf;
-    private final JTable view;
+    private final JTable view = new JTable() {
+        public boolean isCellEditable(int nRow, int nCol) {
+            return false;
+        }
+    };
     private final JDialog frame;
 
 
@@ -33,13 +37,6 @@ public class SQLFrame extends JFrame {
         setSize(600,400);
         setTitle("SQL Browser");
         setLocationRelativeTo(null); //Setzt Frame in die Mitte
-
-        view = new JTable() {
-            public boolean isCellEditable(int nRow, int nCol) {
-                return false;
-            }
-        };
-        connectionpanel = new SetConnection();
 
         JMenuBar bar = new JMenuBar();
         Border bo = new LineBorder(Color.DARK_GRAY);
