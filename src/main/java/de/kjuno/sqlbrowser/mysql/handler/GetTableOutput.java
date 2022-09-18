@@ -1,6 +1,6 @@
-package richard.mysqltest.mysql.handler;
+package de.kjuno.sqlbrowser.mysql.handler;
 
-import richard.mysqltest.mysql.MySQLManager;
+import de.kjuno.sqlbrowser.mysql.MySQLManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

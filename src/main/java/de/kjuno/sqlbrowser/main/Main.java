@@ -1,7 +1,7 @@
-package richard.mysqltest.main;
+package de.kjuno.sqlbrowser.main;
 
-import richard.mysqltest.gui.SQLFrame;
-import richard.mysqltest.mysql.MySQLManager;
+import de.kjuno.sqlbrowser.mysql.MySQLManager;
+import de.kjuno.sqlbrowser.gui.SQLFrame;
 
 public class Main {
 
@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         manager = new MySQLManager();
-        SQLFrame sqlFrame = new SQLFrame();
+        new SQLFrame();
     }
 
     public static MySQLManager getManager() {

@@ -1,15 +1,15 @@
-package richard.mysqltest.gui;
+package de.kjuno.sqlbrowser.gui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import richard.mysqltest.main.Main;
-import richard.mysqltest.mysql.commands.SQLCommand;
-import richard.mysqltest.mysql.data.ConnectionData;
-import richard.mysqltest.mysql.data.JSONExport;
-import richard.mysqltest.mysql.data.Table;
-import richard.mysqltest.mysql.handler.GetTableOutput;
+import de.kjuno.sqlbrowser.main.Main;
+import de.kjuno.sqlbrowser.mysql.data.ConnectionData;
+import de.kjuno.sqlbrowser.mysql.data.JSONExport;
+import de.kjuno.sqlbrowser.mysql.data.Table;
+import de.kjuno.sqlbrowser.mysql.commands.SQLCommand;
+import de.kjuno.sqlbrowser.mysql.handler.GetTableOutput;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -22,20 +22,15 @@ import java.io.File;
 import java.io.IOException;
 
 public class SQLFrame extends JFrame {
-    private JMenuItem setconnection;
-    private JMenu connectionmenu;
-    private JCheckBox check;
-    private JPanel panel = new JPanel();
-    private SetConnection connectionpanel = new SetConnection();
-    private JButton send;
-    private JLabel label;
-    private JTextField tf;
-    private JTable view;
-    private JMenuBar bar;
-    private JMenu tools;
-    private JMenuItem jsontable;
-    private JMenuItem jsonstatement;
-    private JDialog frame;
+    private final JCheckBox check;
+    private final SetConnection connectionpanel = new SetConnection();
+    private final JTextField tf;
+    private final JTable view = new JTable() {
+        public boolean isCellEditable(int nRow, int nCol) {
+            return false;
+        }
+    };
+    private final JDialog frame;
 
 
     public SQLFrame() {
@@ -43,21 +38,15 @@ public class SQLFrame extends JFrame {
         setTitle("SQL Browser");
         setLocationRelativeTo(null); //Setzt Frame in die Mitte
 
-        view = new JTable() {
-            public boolean isCellEditable(int nRow, int nCol) {
-                return false;
-            }
-        };
-
-        bar = new JMenuBar();
+        JMenuBar bar = new JMenuBar();
         Border bo = new LineBorder(Color.DARK_GRAY);
         bar.setBorder(bo);
 
-        tools = new JMenu("Tools");
+        JMenu tools = new JMenu("Tools");
         bar.add(tools);
 
-        jsonstatement = new JMenuItem("generate JSON from statement");
-        jsontable = new JMenuItem("generate JSON from table_content");
+        JMenuItem jsonstatement = new JMenuItem("generate JSON from statement");
+        JMenuItem jsontable = new JMenuItem("generate JSON from table_content");
 
         jsonstatement.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -86,8 +75,8 @@ public class SQLFrame extends JFrame {
         tools.add(jsonstatement);
         tools.add(jsontable);
 
-        connectionmenu = new JMenu("Connection");
-        setconnection = new JMenuItem("set Connection");
+        JMenu connectionmenu = new JMenu("Connection");
+        JMenuItem setconnection = new JMenuItem("set Connection");
         setconnection.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(true);
@@ -98,11 +87,12 @@ public class SQLFrame extends JFrame {
 
         getContentPane().add(BorderLayout.NORTH, bar);
         getContentPane().add(BorderLayout.CENTER, new JScrollPane(view));
+        JPanel panel = new JPanel();
         getContentPane().add(BorderLayout.SOUTH, panel);
 
-        label = new JLabel("Send Statement: ");
+        JLabel label = new JLabel("Send Statement: ");
         tf = new JTextField(20);
-        send = new JButton("Send");
+        JButton send = new JButton("Send");
         check = new JCheckBox("Return?");
 
         send.addActionListener(new ActionListener() {
@@ -175,14 +165,14 @@ public class SQLFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(connectionpanel.getHost().getText().equals("") ||
                         connectionpanel.getUser().getText().equals("") ||
-                        connectionpanel.getPasswordField().getPassword().equals("") ||
+                        connectionpanel.getPasswordField().getPassword().length != 0 ||
                         connectionpanel.getHost().getText().equals("")){
                     JOptionPane.showMessageDialog(null,"Mindestens ein Textfeld ist leer!","ERROR", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 ConnectionData data = new ConnectionData(connectionpanel.getHost().getText(),
                         connectionpanel.getUser().getText(),
-                        connectionpanel.getPasswordField().getText(),
+                        String.valueOf(connectionpanel.getPasswordField().getPassword()),
                         Integer.parseInt(connectionpanel.getPort().getText()));
                 Main.getManager().setConnection(data);
                 if(connectionpanel.getJcomp2().isSelected()){

@@ -1,4 +1,4 @@
-package richard.mysqltest.mysql.data;
+package de.kjuno.sqlbrowser.mysql.data;
 
 public class ConnectionData {
     public String getHostname() {
@@ -38,11 +38,6 @@ public class ConnectionData {
         this.user = user;
         this.password = password;
         this.port = port;
-    }
-
-    public ConnectionData()
-    {
-        super();
     }
 
     private String hostname;
