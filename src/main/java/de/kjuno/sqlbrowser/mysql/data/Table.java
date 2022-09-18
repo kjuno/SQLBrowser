@@ -1,4 +1,4 @@
-package richard.mysqltest.mysql.data;
+package de.kjuno.sqlbrowser.mysql.data;
 
 public class Table {
     private String[] columnname;

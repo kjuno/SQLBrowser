@@ -1,7 +1,7 @@
-package richard.mysqltest.mysql;
+package de.kjuno.sqlbrowser.mysql;
 
-import richard.mysqltest.mysql.commands.SQLCommand;
-import richard.mysqltest.mysql.data.ConnectionData;
+import de.kjuno.sqlbrowser.mysql.data.ConnectionData;
+import de.kjuno.sqlbrowser.mysql.commands.SQLCommand;
 
 import java.sql.*;
 
@@ -14,12 +14,6 @@ public class MySQLManager {
 
     private Connection connection;
 
-    public MySQLManager(String host, String username, String password, int port){
-        this.host = host;
-        this.username = username;
-        this.password = password;
-        this.port = port;
-    }
     public MySQLManager(){
     }
 
@@ -59,14 +53,14 @@ public class MySQLManager {
         return connection;
     }
 
-    public ResultSet writeStatement(SQLCommand command) {
+    public void writeStatement(SQLCommand command) {
         Statement stmt = null;
         ResultSet set = null;
 
         try {
             if(connection == null){
                 System.out.println("Verbindung wurde nicht gesetzt!");
-                return null;
+                return;
             }
             stmt = connection.createStatement();
             if(command.isReturning()){
@@ -80,11 +74,9 @@ public class MySQLManager {
             } else {
                 stmt.execute(command.getCommand());
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-
             if(stmt != null) {
                 try {
                     stmt.close();
@@ -92,10 +84,7 @@ public class MySQLManager {
                     e.printStackTrace();
                 }
             }
-
         }
-
-        return set;
     }
     public static String[] convertMetaDatatoArray(ResultSetMetaData data) throws SQLException {
         String[] columns = new String[data.getColumnCount()];

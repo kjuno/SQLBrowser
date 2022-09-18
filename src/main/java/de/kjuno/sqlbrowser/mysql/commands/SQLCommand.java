@@ -1,12 +1,11 @@
-package richard.mysqltest.mysql.commands;
+package de.kjuno.sqlbrowser.mysql.commands;
 
-import richard.mysqltest.mysql.handler.ReturnHandler;
+import de.kjuno.sqlbrowser.mysql.handler.ReturnHandler;
 
 public class SQLCommand {
-    private String command;
-    private Boolean isReturning;
+    private final String command;
+    private final Boolean isReturning;
     private ReturnHandler handler;
-    private Object[] data;
 
     public SQLCommand(String command, ReturnHandler returnHandler) {
         this.isReturning = true;
@@ -17,13 +16,6 @@ public class SQLCommand {
     public SQLCommand(String command) {
         this.isReturning = false;
         this.command = command;
-    }
-
-    public SQLCommand() {
-    }
-
-    public void setHandler(ReturnHandler handler) {
-        this.handler = handler;
     }
 
     public String getCommand() {

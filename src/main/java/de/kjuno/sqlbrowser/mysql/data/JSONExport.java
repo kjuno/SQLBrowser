@@ -1,4 +1,4 @@
-package richard.mysqltest.mysql.data;
+package de.kjuno.sqlbrowser.mysql.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,7 +8,6 @@ public class JSONExport {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
         Gson gson = builder.create();
-        String json = gson.toJson(table);
-        return json;
+        return gson.toJson(table);
     }
 }
